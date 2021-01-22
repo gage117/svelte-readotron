@@ -23,6 +23,13 @@
             waiter = new DOMWaiter()
             const el = await waiter.wait(selector)
 
+            const y = el.getBoundingClientRect().y
+            const h = el.getBoundingClientRect().height
+            document.addEventListener('scroll', () => {
+                console.log(Math.ceil(Math.abs(el.getBoundingClientRect().y - y) / h * 100))
+            })
+            el.addEventListener('scroll', () => console.log('scroll'))
+
             const rdm = new ReadPerMinute()
             ;({time, words} = rdm.parse(el.textContent, lang))
         } catch (err) {
